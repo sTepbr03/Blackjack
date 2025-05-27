@@ -44,21 +44,24 @@ public class BlackjackGame {
             System.out.println("\nDeine Karten: " + spieler.getHand() + " (Wert: " + spieler.getHandWert() + ")");
             System.out.println("Dealer zeigt: " + dealer.getHand().get(0));
 
+            OUTER:
             while (spieler.getHandWert() < 21) {
                 System.out.print("Möchtest du 'Hit' (h) oder 'Stand' (s)? ");
                 String eingabe = scanner.next().toLowerCase();
-                if (eingabe.equals("h")) {
-                    spieler.addKarte(deck.zieheKarte());
-                    System.out.println("Deine Karten: " + spieler.getHand() + " (Wert: " + spieler.getHandWert() + ")");
-                    if (spieler.getHandWert() > 21) {
-                        System.out.println("Über 21! Du verlierst.");
-                        spieler.setGeld(spieler.getGeld() - einsatz);
-                        break;
+                switch (eingabe) {
+                    case "h" -> {
+                        spieler.addKarte(deck.zieheKarte());
+                        System.out.println("Deine Karten: " + spieler.getHand() + " (Wert: " + spieler.getHandWert() + ")");
+                        if (spieler.getHandWert() > 21) {
+                            System.out.println("Über 21! Du verlierst.");
+                            spieler.setGeld(spieler.getGeld() - einsatz);
+                            break OUTER;
+                        }
                     }
-                } else if (eingabe.equals("s")) {
-                    break;
-                } else {
-                    System.out.println("Ungültige Eingabe! Bitte 'h' oder 's' eingeben.");
+                    case "s" -> {
+                        break OUTER;
+                    }
+                    default -> System.out.println("Ungültige Eingabe! Bitte 'h' oder 's' eingeben.");
                 }
             }
 
@@ -100,5 +103,37 @@ public class BlackjackGame {
     public static void main(String[] args) {
         BlackjackGame spiel = new BlackjackGame();
         spiel.starteSpiel();
+    }
+
+    public Deck getDeck() {
+        return deck;
+    }
+
+    public void setDeck(Deck deck) {
+        this.deck = deck;
+    }
+
+    public Spieler getSpieler() {
+        return spieler;
+    }
+
+    public void setSpieler(Spieler spieler) {
+        this.spieler = spieler;
+    }
+
+    public Spieler getDealer() {
+        return dealer;
+    }
+
+    public void setDealer(Spieler dealer) {
+        this.dealer = dealer;
+    }
+
+    public Scanner getScanner() {
+        return scanner;
+    }
+
+    public void setScanner(Scanner scanner) {
+        this.scanner = scanner;
     }
 }

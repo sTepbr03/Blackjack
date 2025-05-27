@@ -17,20 +17,23 @@ class Karte {
 
     // Gibt den numerischen Wert der Karte zurück
     public int getNumerischerWert() {
-        switch (wert) {
-            case "Ass":
-                return 11; // Ass kann 1 oder 11 sein, hier zunächst 11
-            case "König":
-            case "Dame":
-            case "Bube":
-                return 10;
-            default:
-                return Integer.parseInt(wert);
-        }
+        return switch (wert) {
+            case "Ass" -> 11;
+            case "König", "Dame", "Bube" -> 10;
+            default -> Integer.parseInt(wert);
+        }; // Ass kann 1 oder 11 sein, hier zunächst 11
     }
 
     @Override
     public String toString() {
         return wert + " von " + farbe;
+    }
+
+    public void setWert(String wert) {
+        this.wert = wert;
+    }
+
+    public void setFarbe(String farbe) {
+        this.farbe = farbe;
     }
 }
