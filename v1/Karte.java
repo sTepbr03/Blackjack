@@ -1,3 +1,4 @@
+package v1;
 class Karte {
     private String farbe; // z.B. Herz, Karo
     private String wert;  // z.B. Ass, König, 2
